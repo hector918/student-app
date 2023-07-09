@@ -1,4 +1,4 @@
-const app = require('../app'); // Replace 'your-app' with the name or path of your application file
+const app = require('../app'); 
 const supertest = require('supertest');
 const request = supertest(app);
 
@@ -20,7 +20,7 @@ describe('GET /student/:id', () => {
 
   it('should return an error message if no student with the specified id is found', async () => {
     const response = await request.get('/student/100');
-    expect(response.status).toBe(200);
+    expect(response.status).toBe(404);
     expect(response.body).toHaveProperty('error');
   });
 

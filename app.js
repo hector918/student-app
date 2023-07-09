@@ -13,7 +13,6 @@ app.get('/', (request, response) => {
 app.get('/students', (request, response) => {
   try {
     response.json({data: students});
-    
   } catch (error) {
     console.error(error);
     response.status(500).json({"error": error.message});
@@ -23,18 +22,20 @@ app.get('/students', (request, response) => {
 app.get('/student/:id', (request, response) => {
   try {
     const {id} = request.params;
+    //test the user input
     if(isNaN( Number(id))) throw new Error ("invalid id.");
+    //find the student info
     const student = students.find(el => el.id===id);
+    //
     if(student){
       response.json({data: student});
     }else {
-      response.json({error: `No student with id of ${id}`});
+      response.status(404).json({error: `No student with id of ${id}`});
     }
   } catch (error) {
     console.error(error);
     response.status(500).json({error: error.message});
   }
 });
-
 
 module.exports = app;

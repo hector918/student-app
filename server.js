@@ -1,6 +1,8 @@
 require('dotenv').config();
 const app = require('./app');
+const http = require("http");
 PORT = process.env.PORT || 9000;
-app.listen(PORT, () => {
-  console.log(`Server linsten on port ${PORT}...`);
-})
+
+http.createServer(app).listen(PORT, () => {
+  console.log(`Http Listening on port ${PORT}`);
+});

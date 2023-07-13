@@ -1,11 +1,14 @@
 //define the route handlers
 const express = require("express");
-const app = express();
+const cors = require('cors');
 
+const app = express();
+app.use(cors());
 const {students} = require('./studentData.json');
 //define our routes
 //root path
 app.get('/', (request, response) => {
+  console.log(request.socket.remoteAddress)
   response.status(200).json({ data: "Service is running!" });
 })
 
@@ -37,5 +40,9 @@ app.get('/student/:id', (request, response) => {
     response.status(500).json({error: error.message});
   }
 });
+
+app.get('*', (request, response) => {
+  response.status(404).send("Page not found.");
+})
 
 module.exports = app;
